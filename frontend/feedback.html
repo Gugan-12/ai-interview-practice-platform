@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interview Feedback | InterviewAI</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<!-- Chart library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+
+/* ================= GLOBAL ================= */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Inter",sans-serif;
+}
+
+body{
+display:flex;
+background:linear-gradient(-45deg,#eef2ff,#f8fafc,#e0f2fe,#eef2ff);
+background-size:400% 400%;
+animation:bgMove 12s ease infinite;
+}
+
+@keyframes bgMove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+width:240px;
+height:100vh;
+background:#0b132b;
+color:white;
+padding:20px;
+position:fixed;
+left:-200px;
+transition:.3s;
+}
+
+.sidebar:hover{
+left:0;
+}
+
+.sidebar h2{
+text-align:center;
+margin-bottom:30px;
+}
+
+.sidebar ul{
+list-style:none;
+}
+
+.sidebar ul li{
+margin:18px 0;
+}
+
+.sidebar ul li a{
+text-decoration:none;
+color:#cbd5e1;
+padding:10px;
+display:block;
+border-radius:8px;
+transition:.25s;
+}
+
+.sidebar ul li a:hover{
+background:#4f46e5;
+}
+
+/* ================= MAIN ================= */
+
+.main{
+margin-left:60px;
+padding:40px;
+width:100%;
+}
+
+/* ================= HEADER ================= */
+
+.header h1{
+font-size:28px;
+margin-bottom:25px;
+}
+
+/* ================= SCORE CIRCLE ================= */
+
+.score-wrapper{
+display:flex;
+justify-content:center;
+margin-bottom:40px;
+}
+
+.score-circle{
+width:180px;
+height:180px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:36px;
+font-weight:bold;
+color:#4f46e5;
+background:white;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+animation:pop .5s ease;
+}
+
+@keyframes pop{
+from{transform:scale(.8);opacity:.3}
+to{transform:scale(1)}
+}
+
+/* ================= METRICS ================= */
+
+.metrics{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+margin-bottom:40px;
+}
+
+.metric-card{
+background:white;
+padding:20px;
+border-radius:14px;
+box-shadow:0 8px 20px rgba(0,0,0,0.06);
+text-align:center;
+transition:.3s;
+}
+
+.metric-card:hover{
+transform:translateY(-5px);
+}
+
+.metric-card h3{
+margin-bottom:10px;
+color:#64748b;
+}
+
+.metric-card p{
+font-size:22px;
+font-weight:bold;
+color:#4f46e5;
+}
+
+/* ================= PROGRESS BARS ================= */
+
+.progress{
+margin-top:10px;
+height:8px;
+background:#e5e7eb;
+border-radius:6px;
+overflow:hidden;
+}
+
+.progress-bar{
+height:100%;
+background:linear-gradient(90deg,#4f46e5,#06b6d4);
+width:0%;
+transition:width .8s ease;
+}
+
+/* ================= CHART ================= */
+
+.chart-card{
+background:white;
+padding:25px;
+border-radius:14px;
+box-shadow:0 8px 20px rgba(0,0,0,0.06);
+margin-bottom:30px;
+}
+
+/* ================= FEEDBACK SECTIONS ================= */
+
+.section{
+background:white;
+padding:25px;
+border-radius:14px;
+box-shadow:0 8px 20px rgba(0,0,0,0.06);
+margin-bottom:25px;
+}
+
+.section h3{
+margin-bottom:15px;
+}
+
+.section ul{
+padding-left:20px;
+}
+
+/* ================= BUTTONS ================= */
+
+.button-group{
+margin-top:30px;
+display:flex;
+gap:15px;
+}
+
+button{
+padding:12px 20px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-size:14px;
+transition:.25s;
+}
+
+.retry-btn{
+background:#4f46e5;
+color:white;
+}
+
+.retry-btn:hover{
+background:#4338ca;
+}
+
+.dashboard-btn{
+background:#10b981;
+color:white;
+}
+
+.dashboard-btn:hover{
+background:#059669;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+  <h2>InterviewAI</h2>
+  <ul>
+
+    <li>
+      <a href="index.html">
+        <i data-lucide="layout-dashboard"></i>
+        Dashboard
+      </a>
+    </li>
+
+    <li>
+      <a href="profile.html">
+        <i data-lucide="user"></i>
+        Profile
+      </a>
+    </li>
+
+    <li>
+      <a href="history.html">
+        <i data-lucide="history"></i>
+        History
+      </a>
+    </li>
+
+    <li>
+      <a href="#" onclick="logout()">
+        <i data-lucide="log-out"></i>
+        Logout
+      </a>
+    </li>
+
+  </ul>
+</div>
+
+<div class="main">
+
+<div class="header">
+<h1>Interview Performance Report</h1>
+</div>
+
+<!-- Overall Score -->
+<div class="score-wrapper">
+<div class="score-circle" id="overallScore">0%</div>
+</div>
+
+<!-- Metrics -->
+<div class="metrics">
+
+<div class="metric-card">
+<h3>Technical Score</h3>
+<p id="technicalScore">0</p>
+<div class="progress"><div id="techBar" class="progress-bar"></div></div>
+</div>
+
+<div class="metric-card">
+<h3>Communication</h3>
+<p id="communicationScore">0</p>
+<div class="progress"><div id="commBar" class="progress-bar"></div></div>
+</div>
+
+<div class="metric-card">
+<h3>Confidence</h3>
+<p id="confidenceScore">0</p>
+<div class="progress"><div id="confBar" class="progress-bar"></div></div>
+</div>
+
+</div>
+
+<!-- Performance Chart -->
+<div class="chart-card">
+<h3>Performance Analysis</h3>
+<canvas id="performanceChart"></canvas>
+</div>
+
+<!-- Strengths -->
+<div class="section">
+<h3>Strengths</h3>
+<ul id="strengthsList"></ul>
+</div>
+
+<!-- Improvements -->
+<div class="section">
+<h3>Areas to Improve</h3>
+<ul id="improvementsList"></ul>
+</div>
+
+<div class="button-group">
+<button class="retry-btn" onclick="retryInterview()">Retry Interview</button>
+<button class="dashboard-btn" onclick="goDashboard()">Dashboard</button>
+</div>
+
+</div>
+
+<script>
+
+function loadFeedback(){
+
+const feedback = JSON.parse(localStorage.getItem("feedback"));
+if(!feedback) return;
+
+document.getElementById("overallScore").innerText =
+feedback.overall_score + "%";
+
+document.getElementById("technicalScore").innerText =
+feedback.technical_score + " / 10";
+
+document.getElementById("communicationScore").innerText =
+feedback.communication_score + " / 10";
+
+document.getElementById("confidenceScore").innerText =
+feedback.confidence_score + " / 10";
+
+/* progress bars */
+
+document.getElementById("techBar").style.width =
+feedback.technical_score*10 + "%";
+
+document.getElementById("commBar").style.width =
+feedback.communication_score*10 + "%";
+
+document.getElementById("confBar").style.width =
+feedback.confidence_score*10 + "%";
+
+/* strengths */
+
+const strengthsList=document.getElementById("strengthsList");
+strengthsList.innerHTML="";
+
+feedback.strengths.forEach(item=>{
+const li=document.createElement("li");
+li.innerText=item;
+strengthsList.appendChild(li);
+});
+
+/* improvements */
+
+const improvementsList=document.getElementById("improvementsList");
+improvementsList.innerHTML="";
+
+feedback.improvements.forEach(item=>{
+const li=document.createElement("li");
+li.innerText=item;
+improvementsList.appendChild(li);
+});
+
+/* chart */
+
+new Chart(document.getElementById("performanceChart"),{
+type:"radar",
+data:{
+labels:["Technical","Communication","Confidence"],
+datasets:[{
+label:"Performance",
+data:[
+feedback.technical_score,
+feedback.communication_score,
+feedback.confidence_score
+],
+backgroundColor:"rgba(79,70,229,0.2)",
+borderColor:"#4f46e5"
+}]
+}
+});
+
+}
+
+function retryInterview(){
+window.location.href="interview.html";
+}
+
+function goDashboard(){
+window.location.href="index.html";
+}
+
+window.onload=loadFeedback;
+
+</script>
+
+<script src="js/authCheck.js"></script>
+<script src="js/logout.js"></script>
+
+<script>
+lucide.createIcons();
+</script>
+</body>
+</html>

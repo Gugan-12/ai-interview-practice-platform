@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login | InterviewAI</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+
+/* GLOBAL */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Inter",sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(-45deg,#6366f1,#4f46e5,#06b6d4,#6366f1);
+background-size:400% 400%;
+animation:bgMove 12s ease infinite;
+}
+
+@keyframes bgMove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+/* MAIN LAYOUT */
+
+.wrapper{
+width:900px;
+height:520px;
+background:white;
+border-radius:16px;
+display:flex;
+overflow:hidden;
+box-shadow:0 20px 50px rgba(0,0,0,0.2);
+}
+
+/* LEFT IMAGE */
+
+.left-panel{
+flex:1;
+background:linear-gradient(135deg,#4f46e5,#06b6d4);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+color:white;
+padding:40px;
+text-align:center;
+}
+
+.left-panel h1{
+font-size:28px;
+margin-bottom:10px;
+}
+
+.left-panel p{
+opacity:0.9;
+font-size:14px;
+margin-bottom:20px;
+}
+
+.left-panel img{
+width:80%;
+max-width:280px;
+}
+
+/* RIGHT FORM */
+
+.right-panel{
+flex:1;
+padding:40px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+.right-panel h2{
+text-align:center;
+margin-bottom:25px;
+color:#1e293b;
+}
+
+/* FORM */
+
+.form-group{
+margin-bottom:18px;
+}
+
+label{
+display:block;
+margin-bottom:6px;
+font-size:13px;
+color:#475569;
+}
+
+.input-box{
+display:flex;
+align-items:center;
+border:1px solid #e2e8f0;
+border-radius:8px;
+padding:10px;
+background:#f8fafc;
+}
+
+.input-box i{
+margin-right:8px;
+color:#64748b;
+}
+
+input{
+border:none;
+outline:none;
+background:transparent;
+flex:1;
+font-size:14px;
+}
+
+input:focus{
+background:white;
+}
+
+/* BUTTON */
+
+button{
+width:100%;
+padding:12px;
+border:none;
+border-radius:8px;
+background:#4f46e5;
+color:white;
+font-weight:600;
+cursor:pointer;
+margin-top:10px;
+transition:.25s;
+}
+
+button:hover{
+background:#4338ca;
+transform:translateY(-1px);
+}
+
+/* TOGGLE */
+
+.toggle-text{
+text-align:center;
+margin-top:15px;
+font-size:14px;
+color:#64748b;
+}
+
+.toggle-text span{
+color:#4f46e5;
+font-weight:600;
+cursor:pointer;
+}
+
+.toggle-text span:hover{
+text-decoration:underline;
+}
+
+/* ERROR */
+
+.error{
+color:#dc2626;
+font-size:13px;
+margin-top:5px;
+}
+
+.hidden{
+display:none;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+.wrapper{
+flex-direction:column;
+height:auto;
+width:90%;
+}
+
+.left-panel{
+display:none;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<!-- LEFT SIDE IMAGE -->
+
+<div class="left-panel">
+
+<h1>InterviewAI</h1>
+
+<p>Practice interviews with AI and get instant performance feedback.</p>
+
+<img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+
+</div>
+
+<!-- RIGHT SIDE FORM -->
+
+<div class="right-panel">
+
+<h2 id="form-title">Login</h2>
+
+<!-- LOGIN FORM -->
+
+<form id="login-form">
+
+<div class="form-group">
+<label>Email</label>
+<div class="input-box">
+<i data-lucide="mail"></i>
+<input type="email" id="login-email" required>
+</div>
+</div>
+
+<div class="form-group">
+<label>Password</label>
+<div class="input-box">
+<i data-lucide="lock"></i>
+<input type="password" id="login-password" required>
+</div>
+</div>
+
+<button type="submit">Login</button>
+
+<p class="error" id="login-error"></p>
+
+</form>
+
+<!-- SIGNUP FORM -->
+
+<form id="signup-form" class="hidden">
+
+<div class="form-group">
+<label>Full Name</label>
+<div class="input-box">
+<i data-lucide="user"></i>
+<input type="text" id="signup-name" required>
+</div>
+</div>
+
+<div class="form-group">
+<label>Email</label>
+<div class="input-box">
+<i data-lucide="mail"></i>
+<input type="email" id="signup-email" required>
+</div>
+</div>
+
+<div class="form-group">
+<label>Password</label>
+<div class="input-box">
+<i data-lucide="lock"></i>
+<input type="password" id="signup-password" required>
+</div>
+</div>
+
+<div class="form-group">
+<label>Confirm Password</label>
+<div class="input-box">
+<i data-lucide="shield-check"></i>
+<input type="password" id="signup-confirm" required>
+</div>
+</div>
+
+<button type="submit">Sign Up</button>
+
+<p class="error" id="signup-error"></p>
+
+</form>
+
+<div class="toggle-text">
+<span id="toggle-link">Don't have an account? Sign Up</span>
+</div>
+
+</div>
+
+</div>
+
+<script>
+lucide.createIcons();
+</script>
+
+<script src="js/auth.js"></script>
+
+</body>
+</html>

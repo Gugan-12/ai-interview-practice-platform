@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InterviewAI Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+
+/* ===== GLOBAL ===== */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Inter",sans-serif;
+}
+
+body{
+display:flex;
+min-height:100vh;
+background:linear-gradient(-45deg,#eef2ff,#f8fafc,#e0f2fe,#eef2ff);
+background-size:400% 400%;
+animation:bgMove 12s ease infinite;
+color:#111827;
+overflow-x:hidden;
+}
+
+@keyframes bgMove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+/* ===== SIDEBAR ===== */
+
+.sidebar{
+width:260px;
+height:100vh;
+background:#0b132b;
+color:white;
+padding:25px;
+position:fixed;
+left:-220px;
+transition:0.35s;
+z-index:1000;
+box-shadow:4px 0 18px rgba(0,0,0,0.25);
+}
+
+.sidebar:hover{
+left:0;
+}
+
+.sidebar h2{
+font-size:20px;
+text-align:center;
+margin-bottom:40px;
+letter-spacing:1px;
+}
+
+.sidebar ul{
+list-style:none;
+}
+
+.sidebar ul li{
+margin:16px 0;
+}
+
+.sidebar ul li a{
+display:flex;
+align-items:center;
+gap:10px;
+text-decoration:none;
+color:#cbd5e1;
+padding:12px;
+border-radius:10px;
+transition:0.25s;
+font-size:15px;
+}
+
+.sidebar ul li a:hover{
+background:#4f46e5;
+color:white;
+transform:translateX(6px);
+}
+
+/* ===== MAIN ===== */
+
+.main{
+margin-left:40px;
+padding:40px;
+width:100%;
+}
+
+/* ===== HEADER ===== */
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+.header h1{
+font-size:28px;
+font-weight:700;
+}
+
+.profile-btn{
+background:#4f46e5;
+border:none;
+padding:10px 20px;
+border-radius:8px;
+color:white;
+font-weight:600;
+cursor:pointer;
+transition:0.25s;
+}
+
+.profile-btn:hover{
+background:#4338ca;
+transform:scale(1.05);
+}
+
+/* ===== HERO ===== */
+
+.hero{
+background:linear-gradient(135deg,#4f46e5,#06b6d4);
+padding:60px;
+border-radius:18px;
+color:white;
+position:relative;
+overflow:hidden;
+box-shadow:0 15px 35px rgba(0,0,0,0.15);
+}
+
+.hero h2{
+font-size:36px;
+margin-bottom:15px;
+}
+
+.hero p{
+font-size:17px;
+opacity:0.9;
+margin-bottom:30px;
+max-width:550px;
+}
+
+.start-btn{
+background:white;
+color:#4f46e5;
+padding:14px 32px;
+border-radius:10px;
+border:none;
+font-weight:600;
+cursor:pointer;
+transition:0.3s;
+}
+
+.start-btn:hover{
+background:#e0e7ff;
+transform:translateY(-4px);
+}
+
+/* decorative shapes */
+
+.hero::before{
+content:"";
+position:absolute;
+width:280px;
+height:280px;
+background:rgba(255,255,255,0.15);
+border-radius:50%;
+top:-80px;
+right:-80px;
+}
+
+.hero::after{
+content:"";
+position:absolute;
+width:200px;
+height:200px;
+background:rgba(255,255,255,0.1);
+border-radius:50%;
+bottom:-70px;
+left:-70px;
+}
+
+/* ===== FEATURES ===== */
+
+.features{
+margin-top:50px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:24px;
+}
+
+.card{
+background:rgba(255,255,255,0.8);
+backdrop-filter:blur(8px);
+padding:28px;
+border-radius:16px;
+box-shadow:0 8px 22px rgba(0,0,0,0.08);
+transition:0.35s;
+cursor:pointer;
+}
+
+.card:hover{
+transform:translateY(-8px);
+box-shadow:0 16px 32px rgba(0,0,0,0.12);
+}
+
+.card-icon{
+width:42px;
+height:42px;
+background:#eef2ff;
+border-radius:8px;
+display:flex;
+align-items:center;
+justify-content:center;
+margin-bottom:12px;
+color:#4f46e5;
+}
+
+.card h3{
+margin-bottom:8px;
+font-size:17px;
+}
+
+.card p{
+font-size:14px;
+color:#4b5563;
+line-height:1.5;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media(max-width:1024px){
+
+.main{
+padding:30px;
+}
+
+.hero{
+padding:45px;
+}
+
+.hero h2{
+font-size:30px;
+}
+
+}
+
+@media(max-width:768px){
+
+.sidebar{
+left:-260px;
+}
+
+.sidebar:hover{
+left:0;
+}
+
+.main{
+margin-left:0;
+padding:20px;
+}
+
+.hero{
+padding:35px;
+}
+
+.hero h2{
+font-size:26px;
+}
+
+}
+
+@media(max-width:480px){
+
+.hero{
+padding:25px;
+}
+
+.hero h2{
+font-size:22px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<h2>InterviewAI</h2>
+
+<ul>
+
+<li>
+<a href="index.html">
+<i data-lucide="layout-dashboard"></i>
+Dashboard
+</a>
+</li>
+
+<li>
+<a href="interview.html">
+<i data-lucide="mic"></i>
+Start Interview
+</a>
+</li>
+
+<li>
+<a href="profile.html">
+<i data-lucide="file-text"></i>
+Resume
+</a>
+</li>
+
+<li>
+<a href="history.html">
+<i data-lucide="history"></i>
+History
+</a>
+</li>
+
+<li>
+<a href="feedback.html">
+<i data-lucide="bar-chart-3"></i>
+Reports
+</a>
+</li>
+
+<li>
+<a href="#">
+<i data-lucide="settings"></i>
+Settings
+</a>
+</li>
+
+<li>
+<a href="#" onclick="logout()">
+<i data-lucide="log-out"></i>
+Logout
+</a>
+</li>
+
+</ul>
+
+</div>
+
+
+<!-- MAIN CONTENT -->
+
+<div class="main">
+
+<div class="header">
+
+<h1>Welcome Back 👋</h1>
+
+<button class="profile-btn" onclick="location.href='profile.html'">
+My Profile
+</button>
+
+</div>
+
+
+<!-- HERO SECTION -->
+
+<div class="hero">
+
+<h2>Practice Smart. Get Hired Faster.</h2>
+
+<p>
+Experience realistic AI-driven interviews with instant feedback,
+resume-aware questions, and performance analytics.
+</p>
+
+<button class="start-btn" onclick="location.href='interview.html'">
+Start Mock Interview
+</button>
+
+</div>
+
+
+<!-- FEATURES -->
+
+<div class="features">
+
+<div class="card">
+
+<div class="card-icon">
+<i data-lucide="file-text"></i>
+</div>
+
+<h3>Resume-Based Questions</h3>
+
+<p>
+AI analyzes your resume to generate personalized interview questions.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+<i data-lucide="mic"></i>
+</div>
+
+<h3>Voice + Text Interviews</h3>
+
+<p>
+Answer using voice or text to simulate a real interview experience.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+<i data-lucide="brain"></i>
+</div>
+
+<h3>AI Evaluation</h3>
+
+<p>
+Receive detailed scores for technical depth, confidence and clarity.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+<i data-lucide="trending-up"></i>
+</div>
+
+<h3>Performance Tracking</h3>
+
+<p>
+Track interview history and monitor your improvement over time.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+lucide.createIcons();
+</script>
+
+<script src="js/authCheck.js"></script>
+<script src="js/logout.js"></script>
+
+</body>
+</html>

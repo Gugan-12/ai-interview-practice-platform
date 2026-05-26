@@ -336,6 +336,7 @@ document.getElementById("answerBox").addEventListener("keydown", e => {
 /* ================= VOICE INPUT ================= */
 
 function startVoice() {
+   debugger
 
   const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
